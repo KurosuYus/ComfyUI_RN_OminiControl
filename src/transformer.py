@@ -7,12 +7,37 @@ from diffusers.models.transformers.transformer_flux import (
     FluxTransformer2DModel,
     Transformer2DModelOutput,
     USE_PEFT_BACKEND,
-    is_torch_version,
+    # is_torch_version,
     scale_lora_layers,
     unscale_lora_layers,
     logger,
 )
 import numpy as np
+
+
+def is_torch_version(op: str, version_str: str) -> bool:
+    v = torch.__version__.split("+")[0]
+    parts = v.split(".")
+    try:
+        current = tuple(int(x) for x in parts[:3])
+    except Exception:
+        current = (0, 0, 0)
+    target_parts = version_str.split(".")
+    try:
+        target = tuple(int(x) for x in target_parts[:3])
+    except Exception:
+        target = (0, 0, 0)
+    if op == ">=":
+        return current >= target
+    if op == ">":
+        return current > target
+    if op == "<=":
+        return current <= target
+    if op == "<":
+        return current < target
+    if op == "==":
+        return current == target
+    return False
 
 
 def prepare_params(

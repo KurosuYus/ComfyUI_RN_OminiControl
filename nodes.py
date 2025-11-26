@@ -26,7 +26,7 @@ class Kiki_Omini_Subject:
     DESCRIPTION = "Ominicontrol subject node"
 
     def run(self, subject_image, prompt, seed):
-        import ComfyUI_RH_OminiControl.rh_omini_subject as ros
+        import ComfyUI_RN_OminiControl.rn_omini_subject as ros
         img = ros.run(subject_image, prompt, seed)
         return (img, )
     
@@ -53,7 +53,7 @@ class Kiki_Omini_Spatial:
     DESCRIPTION = "Ominicontrol spatial node"
 
     def run(self, ref_image, prompt, condition_type, seed):
-        import ComfyUI_RH_OminiControl.rh_omini_spatial as rosp
+        import ComfyUI_RN_OminiControl.rn_omini_spatial as rosp
         img = rosp.run(ref_image, prompt, condition_type, seed)
         return (img, )
     
@@ -80,7 +80,7 @@ class Kiki_Omini_Fill:
     DESCRIPTION = "Ominicontrol fill node"
 
     def run(self, ori_image, mask, prompt, seed):
-        import ComfyUI_RH_OminiControl.rh_omini_fill as rof
+        import ComfyUI_RN_OminiControl.rn_omini_fill as rof
         img = rof.run(ori_image, mask, prompt, seed)
         return (img, )
 

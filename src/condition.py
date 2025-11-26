@@ -43,12 +43,20 @@ class Condition(object):
             import folder_paths
             import os
 
-            depth_pipe = pipeline(
-                task="depth-estimation",
-                # model="LiheYoung/depth-anything-small-hf",
-                model=os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'depth-anything-small-hf'),
-                device="cuda",
-            )
+            device = 0 if torch.cuda.is_available() else -1
+            depth_model_path = os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'depth-anything-small-hf')
+            try:
+                depth_pipe = pipeline(
+                    task="depth-estimation",
+                    model=depth_model_path,
+                    device=device,
+                )
+            except Exception:
+                depth_pipe = pipeline(
+                    task="depth-estimation",
+                    model="LiheYoung/depth-anything-small-hf",
+                    device=device,
+                )
             source_image = raw_img.convert("RGB")
             condition_img = depth_pipe(source_image)["depth"].convert("RGB")
             return condition_img
@@ -91,8 +99,7 @@ class Condition(object):
         Encodes an image condition into tokens using the pipeline.
         """
         cond_img = pipe.image_processor.preprocess(cond_img)
-        # cond_img = cond_img.to(pipe.device).to(pipe.dtype)
-        cond_img = cond_img.to('cuda').to(pipe.dtype)
+        cond_img = cond_img.to(pipe.device).to(pipe.dtype)
         cond_img = pipe.vae.encode(cond_img).latent_dist.sample()
         cond_img = (
             cond_img - pipe.vae.config.shift_factor

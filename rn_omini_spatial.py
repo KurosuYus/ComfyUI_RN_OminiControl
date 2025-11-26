@@ -2,14 +2,14 @@ import torch
 from PIL import Image
 import numpy as np
 from diffusers import FluxPipeline, FluxTransformer2DModel
-from ComfyUI_RH_OminiControl.src.generate import generate, seed_everything
-from ComfyUI_RH_OminiControl.src.condition import Condition
+from ComfyUI_RN_OminiControl.src.generate import generate, seed_everything
+from ComfyUI_RN_OminiControl.src.condition import Condition
 from transformers import CLIPTextModel, CLIPTokenizer, T5EncoderModel,T5TokenizerFast
 import folder_paths
 import os
-from ComfyUI_RH_OminiControl.rh_utils import *
+from ComfyUI_RN_OminiControl.rn_utils import *
 
-def run(t_img, prompt, seed):
+def run(t_img, prompt, condition_type, seed):
 
     assert t_img.shape[0] == 1
     
@@ -19,9 +19,9 @@ def run(t_img, prompt, seed):
     release_gpu()
 
     flux_dir = os.path.join(folder_paths.models_dir, 'flux', 'FLUX.1-schnell')
-    lora_model = os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'omini', 'subject_512.safetensors')
+    lora_model = os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'experimental', f'{condition_type}.safetensors')
 
-    encoded_condition = encode_condition(flux_dir, image)
+    encoded_condition = encode_condition(flux_dir, image, condition_type)
 
     text_encoder = CLIPTextModel.from_pretrained(
         flux_dir, subfolder="text_encoder", torch_dtype=torch.bfloat16
@@ -32,15 +32,17 @@ def run(t_img, prompt, seed):
     tokenizer = CLIPTokenizer.from_pretrained(flux_dir, subfolder="tokenizer")
     tokenizer_2 = T5TokenizerFast.from_pretrained(flux_dir, subfolder="tokenizer_2")
 
+    device, dtype = get_device_and_dtype()
     pipeline = FluxPipeline.from_pretrained(
         flux_dir,
-        text_encoder=text_encoder,
-        text_encoder_2=text_encoder_2,
+        text_encoder=text_encoder.to(dtype),
+        text_encoder_2=text_encoder_2.to(dtype),
         tokenizer=tokenizer,
         tokenizer_2=tokenizer_2,
         transformer=None,
         vae=None,
-    ).to("cuda")
+        torch_dtype=dtype,
+    ).to(device)
 
     with torch.no_grad():
         prompt_embeds, pooled_prompt_embeds, text_ids = pipeline.encode_prompt(
@@ -63,17 +65,17 @@ def run(t_img, prompt, seed):
         tokenizer=None,
         tokenizer_2=None,
         vae=None,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=dtype,
     )
 
-    pipeline.to('cuda')
+    pipeline.to(device)
 
     pipeline.load_lora_weights(
         lora_model,
-        adapter_name="subject",
+        adapter_name=condition_type,
     )
 
-    condition = Condition("subject", image)
+    condition = Condition(condition_type, image)
 
     seed_everything(int(seed) % (2 ^ 16))
 
@@ -99,7 +101,3 @@ def run(t_img, prompt, seed):
     result_img = decode_latents(flux_dir, result_latents[0]).images[0]
 
     return torch.from_numpy(np.array(result_img).astype(np.float32) / 255.0).unsqueeze(0)
-
-
-
-    

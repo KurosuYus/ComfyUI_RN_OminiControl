@@ -18,22 +18,24 @@ def get_gpu_memory():
 
 def init_pipeline():
     global pipe
-    if use_int8 or get_gpu_memory() < 33:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    dtype = torch.bfloat16 if device.type == "cuda" else torch.float32
+    if use_int8 or (device.type == "cuda" and get_gpu_memory() < 33):
         transformer_model = FluxTransformer2DModel.from_pretrained(
             "sayakpaul/flux.1-schell-int8wo-improved",
-            torch_dtype=torch.bfloat16,
+            torch_dtype=dtype,
             use_safetensors=False,
         )
         pipe = FluxPipeline.from_pretrained(
             "black-forest-labs/FLUX.1-schnell",
             transformer=transformer_model,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=dtype,
         )
     else:
         pipe = FluxPipeline.from_pretrained(
-            "black-forest-labs/FLUX.1-schnell", torch_dtype=torch.bfloat16
+            "black-forest-labs/FLUX.1-schnell", torch_dtype=dtype
         )
-    pipe = pipe.to("cuda")
+    pipe = pipe.to(device)
     pipe.load_lora_weights(
         "Yuanshi/OminiControl",
         weight_name="omini/subject_512.safetensors",

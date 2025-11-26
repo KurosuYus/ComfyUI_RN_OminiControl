@@ -180,9 +180,9 @@ def generate(
         for condition in conditions:
             # tokens, ids, type_id = condition.encode(self)
             tokens, ids, type_id = params['encoded_condition']
-            tokens.to(torch.bfloat16)
-            ids.to(torch.bfloat16)
-            type_id.to(torch.bfloat16)
+            tokens = tokens.to(prompt_embeds.dtype)
+            ids = ids.to(prompt_embeds.dtype)
+            type_id = type_id.to(prompt_embeds.dtype)
             condition_latents.append(tokens)  # [batch_size, token_n, token_dim]
             condition_ids.append(ids)  # [token_n, id_dim(3)]
             condition_type_ids.append(type_id)  # [token_n, 1]
