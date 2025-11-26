@@ -1,6 +1,6 @@
-# ComfyUI_RH_OminiControl
+# ComfyUI_RN_OminiControl
 
-**ComfyUI_RH_OminiControl** 是一个基于 [OminiControl](https://github.com/Yuanshi9815/OminiControl) 的 ComfyUI 插件。通过分拆 pipeline 加载，该插件能够在 NVIDIA RTX 4090 显卡上高效运行。同时，空间（spatial）及填充（fill）功能也通过 schnell 模型生成，减少采样步数，提高整体效率。
+**ComfyUI_RN_OminiControl** 是一个基于 [OminiControl](https://github.com/Yuanshi9815/OminiControl) 的 ComfyUI 插件。通过分拆 pipeline 加载，该插件能够在 NVIDIA RTX 4090 显卡上高效运行。同时，空间（spatial）及填充（fill）功能也通过 schnell 模型生成，减少采样步数，提高整体效率。
 
 ## 特性
 
@@ -19,7 +19,7 @@
 ## 下载插件
 克隆本插件仓库到 custom_nodes：
 ```
-git clone https://github.com/HM-RunNode/ComfyUI_RH_OminiControl.git
+git clone https://github.com/HM-RunNode/ComfyUI_RN_OminiControl.git
 ```
 
 ## 模型目录结构：

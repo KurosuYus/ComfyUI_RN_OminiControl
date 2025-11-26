@@ -1,7 +1,7 @@
 # [中文版说明](README_CN.md).
-# ComfyUI_RH_OminiControl
+# ComfyUI_RN_OminiControl
 
-**ComfyUI_RH_OminiControl** is a ComfyUI plugin based on [OminiControl](https://github.com/Yuanshi9815/OminiControl) By splitting the pipeline load, the plugin efficiently runs on NVIDIA RTX 4090 GPUs. Additionally, the spatial and fill functionalities are generated using the schnell model, reducing the number of sampling steps and improving overall efficiency.
+**ComfyUI_RN_OminiControl** is a ComfyUI plugin based on [OminiControl](https://github.com/Yuanshi9815/OminiControl). By splitting the pipeline load, the plugin efficiently runs on NVIDIA RTX 4090 GPUs. Additionally, the spatial and fill functionalities are generated using the schnell model, reducing the number of sampling steps and improving overall efficiency.
 
 ## Features
 - **Optimized Performance:**：Utilizes the RTX 4090's computational power through pipeline splitting.
@@ -20,7 +20,7 @@
 ## Download
 Clone the plugin repository into custom_nodes:
 ```
-git clone https://github.com/HM-RunNode/ComfyUI_RH_OminiControl.git
+git clone https://github.com/HM-RunNode/ComfyUI_RN_OminiControl.git
 ```
 
 
