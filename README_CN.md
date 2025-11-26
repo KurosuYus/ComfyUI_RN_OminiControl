@@ -19,7 +19,7 @@
 ## 下载插件
 克隆本插件仓库到 custom_nodes：
 ```
-git clone https://github.com/HM-RunningHub/ComfyUI_RH_OminiControl.git
+git clone https://github.com/HM-RunNode/ComfyUI_RH_OminiControl.git
 ```
 
 ## 模型目录结构：
@@ -89,7 +89,7 @@ experimental/ （下载地址：https://huggingface.co/Yuanshi/OminiControl/tree
 omini/ （下载地址：https://huggingface.co/Yuanshi/OminiControl/tree/main/omini）
 ```
 ### 运行案例展示
-运端一键运行： https://www.runninghub.cn/post/1865085524393500674
+运端一键运行： https://www.RunNode.cn/post/1865085524393500674
 ![image](https://github.com/user-attachments/assets/2db219bb-957f-4563-9285-d1a62deb77d1)
 
 

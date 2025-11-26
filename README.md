@@ -20,7 +20,7 @@
 ## Download
 Clone the plugin repository into custom_nodes:
 ```
-git clone https://github.com/HM-RunningHub/ComfyUI_RH_OminiControl.git
+git clone https://github.com/HM-RunNode/ComfyUI_RH_OminiControl.git
 ```
 
 
@@ -91,7 +91,7 @@ experimental/ (download here: https://huggingface.co/Yuanshi/OminiControl/tree/m
 omini/ (download here: https://huggingface.co/Yuanshi/OminiControl/tree/main/omini)
 ```
 ### Example Run Demo
-One-click cloud run: [https://www.runninghub.ai/post/1865085524393500674]( https://www.runninghub.ai/post/1865085524393500674).
+One-click cloud run: [https://www.RunNode.ai/post/1865085524393500674]( https://www.RunNode.ai/post/1865085524393500674).
 ![image](https://github.com/user-attachments/assets/cc60cbc0-3c44-4da0-8e96-c2f5f89122be)
 
 

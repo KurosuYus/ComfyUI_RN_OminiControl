@@ -54,11 +54,11 @@
 				426,
 				-109
 			],
-			"widgets_values":[
-				"A very close up view of this item. It is placed on a wooden table. The background is a dark room, the TV is on, and the screen is showing a cooking show. With text on the screen that reads 'Omini Control.RH'",
-				930189974516926,
-				"randomize"
-			],
+            "widgets_values":[
+                "A very close up view of this item. It is placed on a wooden table. The background is a dark room, the TV is on, and the screen is showing a cooking show. With text on the screen that reads 'Omini Control.RN'",
+                930189974516926,
+                "randomize"
+            ],
 			"inputs":[
 				{
 					"name":"subject_image",
@@ -72,9 +72,9 @@
 				
 			},
 			"id":1,
-			"type":"RunningHub_Omini_Subject",
+			"type":"RunNode_Omini_Subject",
 			"properties":{
-				"Node name for S&R":"RunningHub_Omini_Subject"
+				"Node name for S&R":"RunNode_Omini_Subject"
 			},
 			"order":1
 		},

@@ -1,0 +1,154 @@
+{
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "mode": 0,
+      "size": {
+        "0": 320,
+        "1": 270
+      },
+      "pos": [
+        920,
+        -40
+      ],
+      "widgets_values": [
+        "ComfyUI"
+      ],
+      "inputs": [
+        {
+          "name": "images",
+          "link": 12,
+          "label": "images",
+          "type": "IMAGE"
+        }
+      ],
+      "flags": {},
+      "id": 4,
+      "type": "SaveImage",
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "order": 2
+    },
+    {
+      "mode": 0,
+      "outputs": [
+        {
+          "shape": 3,
+          "name": "image",
+          "slot_index": 0,
+          "links": [
+            12
+          ],
+          "label": "image",
+          "type": "IMAGE"
+        }
+      ],
+      "size": {
+        "0": 420,
+        "1": 240
+      },
+      "pos": [
+        480,
+        -80
+      ],
+      "widgets_values": [
+        "A film style shot. Use canny edges to guide composition. This item stands on a city street at night, neon reflections, with a sign reading 'Omini Control.RN'.",
+        "canny",
+        123456789,
+        "randomize"
+      ],
+      "inputs": [
+        {
+          "name": "ref_image",
+          "link": 11,
+          "slot_index": 0,
+          "label": "ref_image",
+          "type": "IMAGE"
+        }
+      ],
+      "flags": {},
+      "id": 3,
+      "type": "RunNode_Omini_Spatial",
+      "properties": {
+        "Node name for S&R": "RunNode_Omini_Spatial"
+      },
+      "order": 1
+    },
+    {
+      "mode": 0,
+      "outputs": [
+        {
+          "shape": 3,
+          "name": "IMAGE",
+          "links": [
+            11
+          ],
+          "label": "IMAGE",
+          "type": "IMAGE"
+        },
+        {
+          "shape": 3,
+          "name": "MASK",
+          "label": "MASK",
+          "type": "MASK"
+        }
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "pos": [
+        100,
+        -90
+      ],
+      "widgets_values": [
+        "b572558e7816370eace1dde01dcf61d1c929dfa58d5141faf39c7abd0f77a371.jpg",
+        "image"
+      ],
+      "flags": {},
+      "id": 2,
+      "type": "LoadImage",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "order": 0
+    }
+  ],
+  "extra": {
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ],
+    "ds": {
+      "offset": {
+        "0": 480.12,
+        "1": 455.67
+      },
+      "scale": 0.9
+    }
+  },
+  "groups": [],
+  "links": [
+    [
+      11,
+      2,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      12,
+      3,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "config": {},
+  "version": 0.4,
+  "last_node_id": 5
+}

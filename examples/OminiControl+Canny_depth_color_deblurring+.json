@@ -111,9 +111,9 @@
 				
 			},
 			"id":1,
-			"type":"RunningHub_Omini_Spatial",
+			"type":"RunNode_Omini_Spatial",
 			"properties":{
-				"Node name for S&R":"RunningHub_Omini_Spatial"
+				"Node name for S&R":"RunNode_Omini_Spatial"
 			},
 			"order":1
 		}

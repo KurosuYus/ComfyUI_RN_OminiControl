@@ -22,7 +22,7 @@ class Kiki_Omini_Subject:
     FUNCTION = "run"
     TITLE = 'OminiControl Subject'
 
-    CATEGORY = "Runninghub/Omini"
+    CATEGORY = "RunNode/Omini"
     DESCRIPTION = "Ominicontrol subject node"
 
     def run(self, subject_image, prompt, seed):
@@ -49,7 +49,7 @@ class Kiki_Omini_Spatial:
     FUNCTION = "run"
     TITLE = 'OminiControl Spatial'
 
-    CATEGORY = "Runninghub/Omini"
+    CATEGORY = "RunNode/Omini"
     DESCRIPTION = "Ominicontrol spatial node"
 
     def run(self, ref_image, prompt, condition_type, seed):
@@ -76,7 +76,7 @@ class Kiki_Omini_Fill:
     FUNCTION = "run"
     TITLE = 'OminiControl Fill'
 
-    CATEGORY = "Runninghub/Omini"
+    CATEGORY = "RunNode/Omini"
     DESCRIPTION = "Ominicontrol fill node"
 
     def run(self, ori_image, mask, prompt, seed):
@@ -85,7 +85,7 @@ class Kiki_Omini_Fill:
         return (img, )
 
 NODE_CLASS_MAPPINGS = {
-    "RunningHub_Omini_Subject": Kiki_Omini_Subject,
-    "RunningHub_Omini_Spatial": Kiki_Omini_Spatial,
-    "RunningHub_Omini_Fill": Kiki_Omini_Fill,
+    "RunNode_Omini_Subject": Kiki_Omini_Subject,
+    "RunNode_Omini_Spatial": Kiki_Omini_Spatial,
+    "RunNode_Omini_Fill": Kiki_Omini_Fill,
 }
