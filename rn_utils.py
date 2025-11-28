@@ -1,8 +1,6 @@
 import torch
 from diffusers import FluxPipeline
 import gc
-from ComfyUI_RN_OminiControl.src.generate import generate, seed_everything
-from ComfyUI_RN_OminiControl.src.condition import Condition
 
 from diffusers.pipelines.flux.pipeline_flux import (
     FluxPipelineOutput,
@@ -44,6 +42,12 @@ def get_models_dir():
         return os.environ.get('COMFYUI_MODELS_DIR', os.path.join(os.getcwd(), 'models'))
 
 def encode_condition(flux_dir, image, condition_type='subject'):
+    try:
+        # when imported as package
+        from ComfyUI_RN_OminiControl.src.condition import Condition
+    except Exception:
+        # when running inside plugin directory
+        from src.condition import Condition
     device, dtype = get_device_and_dtype()
     pipeline = FluxPipeline.from_pretrained(
         flux_dir,
