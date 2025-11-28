@@ -23,6 +23,26 @@ def release_gpu():
         torch.cuda.reset_max_memory_allocated()
         torch.cuda.reset_peak_memory_stats()
 
+def resolve_flux_dir(name_or_path):
+    import os
+    if not name_or_path:
+        return os.path.join(get_models_dir(), 'flux', 'FLUX.1-schnell')
+    if os.path.isabs(name_or_path):
+        return name_or_path
+    if name_or_path.endswith('.gguf'):
+        return name_or_path
+    if '/' in name_or_path or ':' in name_or_path:
+        return name_or_path
+    return os.path.join(get_models_dir(), 'flux', name_or_path)
+
+def get_models_dir():
+    import os
+    try:
+        import folder_paths
+        return folder_paths.models_dir
+    except Exception:
+        return os.environ.get('COMFYUI_MODELS_DIR', os.path.join(os.getcwd(), 'models'))
+
 def encode_condition(flux_dir, image, condition_type='subject'):
     device, dtype = get_device_and_dtype()
     pipeline = FluxPipeline.from_pretrained(

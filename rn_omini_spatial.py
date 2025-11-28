@@ -2,14 +2,17 @@ import torch
 from PIL import Image
 import numpy as np
 from diffusers import FluxPipeline, FluxTransformer2DModel
-from ComfyUI_RN_OminiControl.src.generate import generate, seed_everything
-from ComfyUI_RN_OminiControl.src.condition import Condition
+try:
+    from ComfyUI_RN_OminiControl.src.generate import generate, seed_everything
+    from ComfyUI_RN_OminiControl.src.condition import Condition
+except Exception:
+    from src.generate import generate, seed_everything
+    from src.condition import Condition
 from transformers import CLIPTextModel, CLIPTokenizer, T5EncoderModel,T5TokenizerFast
-import folder_paths
 import os
 from ComfyUI_RN_OminiControl.rn_utils import *
 
-def run(t_img, prompt, condition_type, seed):
+def run(t_img, prompt, condition_type, flux_model, seed):
 
     assert t_img.shape[0] == 1
     
@@ -18,8 +21,8 @@ def run(t_img, prompt, condition_type, seed):
 
     release_gpu()
 
-    flux_dir = os.path.join(folder_paths.models_dir, 'flux', 'FLUX.1-schnell')
-    lora_model = os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'experimental', f'{condition_type}.safetensors')
+    flux_dir = resolve_flux_dir(flux_model)
+    lora_model = os.path.join(get_models_dir(), 'flux', 'OminiControl', 'experimental', f'{condition_type}.safetensors')
 
     encoded_condition = encode_condition(flux_dir, image, condition_type)
 
@@ -57,9 +60,10 @@ def run(t_img, prompt, condition_type, seed):
 
     release_gpu()
 
+    if isinstance(flux_dir, str) and flux_dir.endswith('.gguf'):
+        raise ValueError('gguf 格式的 FLUX 模型当前不支持直接加载。请使用 diffusers 目录或 HuggingFace 仓库名称。')
     pipeline = FluxPipeline.from_pretrained(
         flux_dir,
-        # transformer=transformer,
         text_encoder=None,
         text_encoder_2=None,
         tokenizer=None,

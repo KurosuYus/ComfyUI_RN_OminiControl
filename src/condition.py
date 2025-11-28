@@ -4,6 +4,7 @@ from diffusers.pipelines import FluxPipeline
 from PIL import Image, ImageFilter
 import numpy as np
 import cv2
+from ..rn_utils import get_models_dir
 
 condition_dict = {
     "depth": 0,
@@ -40,11 +41,10 @@ class Condition(object):
         """
         if condition_type == "depth":
             from transformers import pipeline
-            import folder_paths
             import os
 
             device = 0 if torch.cuda.is_available() else -1
-            depth_model_path = os.path.join(folder_paths.models_dir, 'flux', 'OminiControl', 'depth-anything-small-hf')
+            depth_model_path = os.path.join(get_models_dir(), 'flux', 'OminiControl', 'depth-anything-small-hf')
             try:
                 depth_pipe = pipeline(
                     task="depth-estimation",
